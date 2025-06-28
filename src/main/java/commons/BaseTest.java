@@ -1,4 +1,8 @@
 package commons;
+import commons.factoryBrowser.BrowserNotSupportedException;
+import commons.factoryBrowser.ChromeDriverManager;
+import commons.factoryBrowser.EdgeDriverManager;
+import commons.factoryBrowser.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -68,6 +72,20 @@ public class BaseTest {
         explicitWait = new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.SHORT_TIMEOUT));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
         return driver;
+    }
+
+    protected WebDriver getBrowserDriverUsingFactory(String browserName) {
+        BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
+        switch(browserList) {
+            case CHROME:
+                return new ChromeDriverManager().getBrowserDriver();
+            case EDGE:
+                return new EdgeDriverManager().getBrowserDriver();
+            case FIREFOX:
+                return new FirefoxDriverManager().getBrowserDriver();
+            default:
+                throw new BrowserNotSupportedException(browserName);
+        }
     }
 
 
