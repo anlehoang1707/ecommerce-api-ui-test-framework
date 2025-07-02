@@ -2,7 +2,6 @@ package api.request;
 
 import exceptions.InvalidRequestException;
 import io.restassured.response.Response;
-import lombok.Setter;
 
 import java.io.File;
 import java.util.Map;
