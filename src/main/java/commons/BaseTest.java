@@ -3,6 +3,8 @@ import commons.factoryBrowser.BrowserNotSupportedException;
 import commons.factoryBrowser.ChromeDriverManager;
 import commons.factoryBrowser.EdgeDriverManager;
 import commons.factoryBrowser.FirefoxDriverManager;
+import model.nopcommerce.NewUserPOJO;
+import model.nopcommerce.RegisterPOJO;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,6 +12,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.MyAccountPO;
+import pageObjects.nopcommerce.HomePO;
+import pageObjects.nopcommerce.LoginPO;
+import pageObjects.nopcommerce.PageGenerator;
+import pageObjects.nopcommerce.RegisterPO;
+import pageUIs.nopcommerce.RegisterPUI;
+
 import java.time.Duration;
 import java.util.Random;
 
@@ -35,12 +44,12 @@ public class BaseTest {
          BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
          switch(browserList) {
              case EDGE:
-                 EdgeOptions edgeOptions = new EdgeOptions();
-                 driver = new EdgeDriver(edgeOptions);
+//                 EdgeOptions edgeOptions = new EdgeOptions();
+                 driver = new EdgeDriver();
                  break;
              case CHROME:
-                 ChromeOptions chromeOptions = new ChromeOptions();
-                 driver = new ChromeDriver(chromeOptions);
+//                 ChromeOptions chromeOptions = new ChromeOptions();
+                 driver = new ChromeDriver();
                  break;
              case FIREFOX:
                  driver = new FirefoxDriver();
@@ -88,6 +97,50 @@ public class BaseTest {
         }
     }
 
+    public RegisterPOJO registerFromHomePageAndLoginToMyAccount(WebDriver driver,HomePO homePO,RegisterPOJO registerPOJO) {
+        RegisterPO registerPO = homePO.clickToRegisterNavButton(driver);
+        String email = "anle" + generateRandom() + "@gmail.com";
+        String password = GlobalConstants.NOPCOMMERCE_VALID_LOGIN_PASSWORD;
+
+        registerPOJO.setFirstName("An" + generateRandom());
+        registerPOJO.setLastName("Le");
+        registerPOJO.setEmail(email);
+        registerPOJO.setCompanyName("Alex");
+        registerPOJO.setPassword(password);
+        registerPOJO.setConfirmPassword(password);
+        registerPO.inputRegisterForm(driver, registerPOJO);
+        registerPO.clickToRegisterButton(driver);
+        homePO = registerPO.clickToLogoutNavButton(driver);
+        MyAccountPO myAccountPO = homePO.clickToMyAccountNavButton(driver);
+        return registerPOJO;
+    }
+
+    public RegisterPOJO registerUser(WebDriver driver, HomePO homePO,RegisterPOJO pojo) {
+        RegisterPO registerPO = homePO.clickToRegisterNavButton(driver);
+        String email = "anle" + generateRandom() + "@gmail.com";
+        String password = GlobalConstants.NOPCOMMERCE_VALID_LOGIN_PASSWORD;
+
+        pojo.setFirstName("An" + generateRandom());
+        pojo.setLastName("Le");
+        pojo.setEmail(email);
+        pojo.setCompanyName("Alex");
+        pojo.setPassword(password);
+        pojo.setConfirmPassword(password);
+
+        registerPO.inputRegisterForm(driver, pojo);
+        registerPO.clickToRegisterButton(driver);
+        registerPO.clickToLogoutNavButton(driver);
+
+        return pojo;
+    }
+
+    public HomePO loginUser(WebDriver driver, HomePO homePO, RegisterPOJO pojo) {
+        LoginPO loginPO = homePO.clickToLoginNavButton(driver);
+        loginPO.sendKeysToEmailTextbox(driver,pojo.getEmail());
+        loginPO.sendKeysToPasswordTextbox(driver,pojo.getPassword());
+        loginPO.clickToLoginButton(driver);
+        return PageGenerator.getHomePO(driver);
+    }
 
 
 }
