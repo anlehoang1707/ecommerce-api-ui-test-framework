@@ -2,7 +2,12 @@ package pageObjects.nopcommerce;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pageUIs.nopcommerce.ProductPUI;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ProductPO extends BasePage {
     WebDriver driver;
@@ -42,4 +47,113 @@ public class ProductPO extends BasePage {
         waitForElementClickable(driver,ProductPUI.SUBMIT_REVIEW_BUTTON);
         clickToElement(driver,ProductPUI.SUBMIT_REVIEW_BUTTON);
     }
+
+    public void selectSortOptionByText(WebDriver driver, String sortOptionText) {
+        waitForElementClickable(driver,ProductPUI.PRODUCT_SORTING_SELECTION);
+        selectItemInDropdownByVisibleText(driver,ProductPUI.PRODUCT_SORTING_SELECTION,sortOptionText);
+    }
+
+    public boolean isProductNameDataSortedAsc(WebDriver driver) {
+        List<String> arrayList = new ArrayList<>();
+
+        List<WebElement> listElements = getListElements(driver,ProductPUI.LIST_PRODUCT_NAME);
+
+        for (WebElement e : listElements) {
+            arrayList.add(e.getText());
+        }
+
+        List<String> sortedList = new ArrayList<>();
+
+        for (String i : arrayList) {
+            sortedList.add(i);
+        }
+
+        Collections.sort(sortedList);
+        return sortedList.equals(arrayList);
+    }
+
+    public boolean isProductNameDataSortedDsc(WebDriver driver) {
+        List<String> arrayList = new ArrayList<>();
+
+        List<WebElement> listElements = getListElements(driver,ProductPUI.LIST_PRODUCT_NAME);
+
+        for (WebElement e : listElements) {
+            arrayList.add(e.getText());
+        }
+
+        List<String> sortedList = new ArrayList<>();
+
+        for (String i : arrayList) {
+            sortedList.add(i);
+        }
+
+        Collections.sort(sortedList);
+        Collections.reverse(sortedList);
+        return sortedList.equals(arrayList);
+    }
+
+    public boolean isProductPriceDataSortedAsc(WebDriver driver) {
+        List<Integer> arrayList = new ArrayList<>();
+
+        List<WebElement> listElements = getListElements(driver,ProductPUI.LIST_PRODUCT_PRICE);
+
+        for (WebElement e : listElements) {
+            String price = e.getText().replaceAll("[$,]","");
+            arrayList.add((int) Double.parseDouble(price));
+        }
+
+        List<Integer> sortedList = new ArrayList<>();
+
+        for (Integer i: arrayList) {
+            sortedList.add(i);
+        }
+
+        Collections.sort(sortedList);
+        return sortedList.equals(arrayList);
+
+    }
+
+    public boolean isProductPriceDataSortedDsc(WebDriver driver) {
+        List<Integer> arrayList = new ArrayList<>();
+
+        List<WebElement> listElements = getListElements(driver,ProductPUI.LIST_PRODUCT_PRICE);
+
+        for (WebElement e : listElements) {
+            String price = e.getText().replaceAll("[$,]","");
+            arrayList.add((int) Double.parseDouble(price));
+        }
+
+        List<Integer> sortedList = new ArrayList<>();
+
+        for (Integer i: arrayList) {
+            sortedList.add(i);
+        }
+
+        Collections.sort(sortedList);
+        Collections.reverse(sortedList);
+        return sortedList.equals(arrayList);
+    }
+
+    public void selectPagingOptionByText(WebDriver driver, String paging) {
+        waitForElementClickable(driver,ProductPUI.PRODUCT_PAGING_SELECTION);
+        selectItemInDropdownByVisibleText(driver,ProductPUI.PRODUCT_PAGING_SELECTION,paging);
+    }
+
+    public boolean isProductListDisplayedLessOrEqual(WebDriver driver, int maximumPagingNumber) {
+        return getListElementsSize(driver,ProductPUI.LIST_PRODUCT_NAME) <= maximumPagingNumber ? true : false;
+    }
+
+    public boolean isNextPageIconDisplayed() {
+        return isControlDisplayed(driver,ProductPUI.NEXT_PAGE_ICON);
+    }
+
+    public void clickToNextPageIcon(WebDriver driver) {
+        waitForElementClickable(driver,ProductPUI.NEXT_PAGE_ICON);
+        clickToElement(driver,ProductPUI.NEXT_PAGE_ICON);
+    }
+
+    public boolean isPreviousPageIconDisplayed() {
+        return isControlDisplayed(driver,ProductPUI.PREVIOUS_PAGE_ICON);
+    }
+
 }
