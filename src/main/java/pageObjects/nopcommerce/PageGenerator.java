@@ -19,4 +19,7 @@ public class PageGenerator {
     public static MyAccountPO getMyAccountPO(WebDriver driver) {
         return new MyAccountPO(driver);
     }
+    public static ProductPO getProductPO(WebDriver driver) {
+        return new ProductPO(driver);
+    }
 }

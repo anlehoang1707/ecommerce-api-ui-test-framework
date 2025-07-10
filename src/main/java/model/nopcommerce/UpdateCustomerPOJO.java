@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class NewUserPOJO {
+public class UpdateCustomerPOJO {
     private String firstName;
     private String lastName;
     private String email;

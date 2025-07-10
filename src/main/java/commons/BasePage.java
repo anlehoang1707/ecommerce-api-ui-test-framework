@@ -6,8 +6,9 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.nopcommerce.HomePO;
+import pageObjects.nopcommerce.LoginPO;
 
-import javax.swing.*;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
@@ -181,6 +182,14 @@ public class BasePage {
 
     public void selectItemInDropdown(WebDriver driver, String locator, String value) {
         new Select(getElement(driver, locator)).selectByValue(value);
+    }
+
+    public void selectItemInDropdownByVisibleText(WebDriver driver, String locator, String visibleText) {
+        new Select(getElement(driver, locator)).selectByVisibleText(visibleText);
+    }
+
+    public void selectItemInDropdownByVisibleText(WebDriver driver, String locator, String visibleText,String... restParameter) {
+        new Select(getElement(driver, locator,restParameter)).selectByVisibleText(visibleText);
     }
 
     public void selectItemInDropdown(WebDriver driver, String locator, String value, String... restParameter) {
@@ -542,5 +551,45 @@ public class BasePage {
         getElement(driver, uploadFileInputLocator).sendKeys(fullFileName);
     }
 
+    public void logoutUser(WebDriver driver) {
+        waitForElementVisible(driver,BasePUI.LOGOUT_NAV_BUTTON);
+        clickToElement(driver, BasePUI.LOGOUT_NAV_BUTTON);
+    }
+
+    public void loginUser(WebDriver driver, HomePO homePO, String loginEmail,String loginPassword) {
+        LoginPO loginPO = homePO.clickToLoginNavButton(driver);
+        loginPO.sendKeysToEmailTextbox(driver,loginEmail);
+        loginPO.sendKeysToPasswordTextbox(driver,loginPassword);
+        loginPO.clickToLoginButton(driver);
+    }
+
+    public void clickToNavLinkButtonByText(WebDriver driver, String navLinkButtonText) {
+        waitForElementClickable(driver, BasePUI.DYNAMIC_NAV_BUTTON_BY_TEXT,navLinkButtonText);
+        clickToElement(driver,BasePUI.DYNAMIC_NAV_BUTTON_BY_TEXT,navLinkButtonText);
+    }
+
+    public void clickToHeaderMenuByText(WebDriver driver,String headerMenuText) {
+        waitForElementClickable(driver, BasePUI.DYNAMIC_HEADER_MENU_BY_TEXT,headerMenuText);
+        clickToElement(driver,BasePUI.DYNAMIC_HEADER_MENU_BY_TEXT,headerMenuText);
+    }
+
+    public void clickToSubCategoryItemByText(WebDriver driver,String subCategoryItemText) {
+        waitForElementClickable(driver, BasePUI.DYNAMIC_SUB_CATEGORY_ITEM_BY_TEXT,subCategoryItemText);
+        clickToElement(driver,BasePUI.DYNAMIC_SUB_CATEGORY_ITEM_BY_TEXT,subCategoryItemText);
+    }
+
+
+    public String getBarNotificationMessageText(WebDriver driver) {
+        return getTextElement(driver,BasePUI.BAR_NOTIFICATION_MESSAGE);
+    }
+
+    public void closeBarNotification(WebDriver driver) {
+        waitForElementClickable(driver,BasePUI.BAR_NOTIFICATION_CLOSE_BUTTON);
+        clickToElement(driver,BasePUI.BAR_NOTIFICATION_CLOSE_BUTTON);
+    }
+
+    public void waitForBarNotificationDisappear(WebDriver driver) {
+        waitForElementInvisible(driver,BasePUI.BAR_NOTIFICATION_MESSAGE);
+    }
 }
 
