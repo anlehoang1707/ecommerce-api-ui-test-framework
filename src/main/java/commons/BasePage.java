@@ -591,5 +591,9 @@ public class BasePage {
     public void waitForBarNotificationDisappear(WebDriver driver) {
         waitForElementInvisible(driver,BasePUI.BAR_NOTIFICATION_MESSAGE);
     }
+
+    public void clickToNavLinkFooterByText(WebDriver driver, String footerText) {
+        clickToElement(driver,BasePUI.DYNAMIC_NAV_LINK_FOOTER_BY_TEXT,footerText);
+    }
 }
 

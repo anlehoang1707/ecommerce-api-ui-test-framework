@@ -12,4 +12,6 @@ public class BasePUI {
     public static final String DYNAMIC_HEADER_MENU_BY_TEXT = "xpath=//div[@class='header-menu']/ul[@class='top-menu notmobile']/li/a[normalize-space() = '%s']";
 
     public static final String DYNAMIC_SUB_CATEGORY_ITEM_BY_TEXT = "xpath=//div[@class='sub-category-item']/h2/a[normalize-space() = '%s']";
+
+    public static final String DYNAMIC_NAV_LINK_FOOTER_BY_TEXT ="xpath=//div[@class='footer']//div[contains(@class,'footer-block')]//a[text()='%s']";
 }
