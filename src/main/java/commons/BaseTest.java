@@ -11,8 +11,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.MyAccountPO;
 import pageObjects.nopcommerce.HomePO;
-import pageObjects.nopcommerce.LoginPO;
-import pageObjects.nopcommerce.PageGenerator;
 import pageObjects.nopcommerce.RegisterPO;
 
 import java.time.Duration;
@@ -94,7 +92,7 @@ public class BaseTest {
     }
 
     public RegisterPOJO registerFromHomePageAndLoginToMyAccount(WebDriver driver,HomePO homePO,RegisterPOJO registerPOJO) {
-        RegisterPO registerPO = homePO.clickToRegisterNavButton(driver);
+        RegisterPO registerPO = homePO.clickToRegisterNavLink(driver);
         String email = "anle" + generateRandom() + "@gmail.com";
         String password = GlobalConstants.NOPCOMMERCE_VALID_LOGIN_PASSWORD;
 
@@ -107,12 +105,12 @@ public class BaseTest {
         registerPO.inputRegisterForm(driver, registerPOJO);
         registerPO.clickToRegisterButton(driver);
         homePO = registerPO.clickToLogoutNavButton(driver);
-        MyAccountPO myAccountPO = homePO.clickToMyAccountNavButton(driver);
+        MyAccountPO myAccountPO = homePO.clickToMyAccountNavLink(driver);
         return registerPOJO;
     }
 
     public RegisterPOJO registerUser(WebDriver driver, HomePO homePO,RegisterPOJO pojo) {
-        RegisterPO registerPO = homePO.clickToRegisterNavButton(driver);
+        RegisterPO registerPO = homePO.clickToRegisterNavLink(driver);
         String email = "anle" + generateRandom() + "@gmail.com";
         String password = GlobalConstants.NOPCOMMERCE_VALID_LOGIN_PASSWORD;
 

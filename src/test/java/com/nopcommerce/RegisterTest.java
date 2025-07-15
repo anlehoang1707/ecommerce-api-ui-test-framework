@@ -25,7 +25,7 @@ public class RegisterTest extends BaseTest {
         driver = getBrowserDriver(url,browserName);
 
         homePO = PageGenerator.getHomePO(driver);
-        registerPO = homePO.clickToRegisterNavButton(driver);
+        registerPO = homePO.clickToRegisterNavLink(driver);
 
         email = "anle" + generateRandom() + "@gmail.com";
         secondEmail = "lean" + generateRandom() + "@gmail.com";
@@ -68,7 +68,7 @@ public class RegisterTest extends BaseTest {
 
         Assert.assertEquals(registerPO.getRegisterSuccessMessage(driver),"Your registration completed");
         homePO = registerPO.clickToLogoutNavButton(driver);
-        registerPO = homePO.clickToRegisterNavButton(driver);
+        registerPO = homePO.clickToRegisterNavLink(driver);
     }
 
     @Test

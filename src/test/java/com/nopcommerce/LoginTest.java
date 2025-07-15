@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest {
         driver = getBrowserDriver(url,browserName);
 
         homePO = PageGenerator.getHomePO(driver);
-        loginPO = homePO.clickToLoginNavButton(driver);
+        loginPO = homePO.clickToLoginNavLink(driver);
 
         loginPOJO = new LoginPOJO();
 

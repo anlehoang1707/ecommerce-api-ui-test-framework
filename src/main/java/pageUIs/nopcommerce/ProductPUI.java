@@ -25,4 +25,16 @@ public class ProductPUI {
     public static final String NEXT_PAGE_ICON = "xpath=//li[@class='next-page']/a";
 
     public static final String PREVIOUS_PAGE_ICON = "xpath=//li[@class='previous-page']/a";
+
+    public static final String PRODUCT_QUANTITY_TEXTBOX = "xpath=//div[@class='add-to-cart']//input[contains(@class,'qty-input')]";
+
+    public static final String ADD_TO_CART_BUTTON ="xpath=//button[contains(@class,'add-to-cart-button')]";
+
+    public static final String DYNAMIC_PRODUCT_DROPDOWN_BY_TEXT ="xpath=(//div[@class='attributes']//dt//label[normalize-space()='%s']/parent::dt//following-sibling::dd//select)[1]";
+
+    public static final String DYNAMIC_PRODUCT_SELECTION_BY_ATTRIBUTE_AND_TEXT = "xpath=//div[@class='attributes']//dt//label[normalize-space()='%s']/parent::dt//following-sibling::dd//ul//label[text()='%s']//preceding-sibling::input";
+
+    public static final String PRODUCT_PRICE = "xpath=//div[@class='product-price']";
+
+    public static final String UPDATE_PRODUCT_BUTTON = "xpath=//button[contains(@class,'add-to-cart-button') and text() = 'Update']";
 }

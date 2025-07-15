@@ -11,7 +11,7 @@ import pageObjects.nopcommerce.PageGenerator;
 import pageObjects.nopcommerce.ProductPO;
 
 
-public class SortDisplayPaging extends BaseTest {
+public class SortDisplayPagingTest extends BaseTest {
     ProductPO productPO;
     HomePO homePO;
 

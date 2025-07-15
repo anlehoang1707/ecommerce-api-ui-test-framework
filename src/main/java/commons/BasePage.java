@@ -160,6 +160,14 @@ public class BasePage {
         getElement(driver, locator, restParameter).click();
     }
 
+    public void clickToElementByActions(WebDriver driver, String locator) {
+        new Actions(driver).moveToElement(getElement(driver,locator)).click().perform();
+    }
+
+    public void clickToElementByActions(WebDriver driver, String locator,String...restParameters) {
+        new Actions(driver).moveToElement(getElement(driver,locator,restParameters)).click().perform();
+    }
+
     public void clickToElementByJS(WebDriver driver, String locator) throws InterruptedException {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click()", getElement(driver, locator));
         sleepInSeconds(2);
@@ -373,6 +381,14 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute('style', arguments[1])", element, originalStyle);
     }
 
+    public void highlightElementByJS(WebDriver driver, String locator,String...restParameters) throws InterruptedException {
+        WebElement element = getElement(driver, locator,restParameters);
+        String originalStyle = element.getAttribute("style");
+        ((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute('style',arguments[1])", element, "border: 2px solid red; border-style: dashed;");
+        sleepInSeconds(2);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute('style', arguments[1])", element, originalStyle);
+    }
+
     public void scrollToElementOnTopByJS(WebDriver driver, String locator) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getElement(driver, locator));
     }
@@ -552,20 +568,25 @@ public class BasePage {
     }
 
     public void logoutUser(WebDriver driver) {
-        waitForElementVisible(driver,BasePUI.LOGOUT_NAV_BUTTON);
-        clickToElement(driver, BasePUI.LOGOUT_NAV_BUTTON);
+        waitForElementVisible(driver,BasePUI.LOGOUT_NAV_LINK);
+        clickToElement(driver, BasePUI.LOGOUT_NAV_LINK);
     }
 
     public void loginUser(WebDriver driver, HomePO homePO, String loginEmail,String loginPassword) {
-        LoginPO loginPO = homePO.clickToLoginNavButton(driver);
+        LoginPO loginPO = homePO.clickToLoginNavLink(driver);
         loginPO.sendKeysToEmailTextbox(driver,loginEmail);
         loginPO.sendKeysToPasswordTextbox(driver,loginPassword);
         loginPO.clickToLoginButton(driver);
     }
 
-    public void clickToNavLinkButtonByText(WebDriver driver, String navLinkButtonText) {
-        waitForElementClickable(driver, BasePUI.DYNAMIC_NAV_BUTTON_BY_TEXT,navLinkButtonText);
-        clickToElement(driver,BasePUI.DYNAMIC_NAV_BUTTON_BY_TEXT,navLinkButtonText);
+    public void clickToNavLinkByText(WebDriver driver, String navLinkText) {
+        waitForElementClickable(driver, BasePUI.DYNAMIC_NAV_LINK_BY_TEXT,navLinkText);
+        clickToElement(driver,BasePUI.DYNAMIC_NAV_LINK_BY_TEXT,navLinkText);
+    }
+
+    public void clickToNavLinkByClassName(WebDriver driver, String navLinkClassName) {
+        waitForElementClickable(driver, BasePUI.DYNAMIC_NAV_LINK_BY_CLASS_NAME,navLinkClassName);
+        clickToElement(driver,BasePUI.DYNAMIC_NAV_LINK_BY_CLASS_NAME,navLinkClassName);
     }
 
     public void clickToHeaderMenuByText(WebDriver driver,String headerMenuText) {
@@ -594,6 +615,10 @@ public class BasePage {
 
     public void clickToNavLinkFooterByText(WebDriver driver, String footerText) {
         clickToElement(driver,BasePUI.DYNAMIC_NAV_LINK_FOOTER_BY_TEXT,footerText);
+    }
+
+    public void waitForLoadingIconDisappear(WebDriver driver) {
+        waitForElementInvisible(driver,BasePUI.LOADING_ICON);
     }
 }
 

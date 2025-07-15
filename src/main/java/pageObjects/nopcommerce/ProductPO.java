@@ -140,7 +140,7 @@ public class ProductPO extends BasePage {
     }
 
     public boolean isProductListDisplayedLessOrEqual(WebDriver driver, int maximumPagingNumber) {
-        return getListElementsSize(driver,ProductPUI.LIST_PRODUCT_NAME) <= maximumPagingNumber ? true : false;
+        return getListElementsSize(driver, ProductPUI.LIST_PRODUCT_NAME) <= maximumPagingNumber;
     }
 
     public boolean isNextPageIconDisplayed() {
@@ -156,4 +156,31 @@ public class ProductPO extends BasePage {
         return isControlDisplayed(driver,ProductPUI.PREVIOUS_PAGE_ICON);
     }
 
+    public void clickToAddToCartButton(WebDriver driver) {
+        waitForElementClickable(driver,ProductPUI.ADD_TO_CART_BUTTON);
+        clickToElement(driver,ProductPUI.ADD_TO_CART_BUTTON);
+    }
+
+    public void selectDropdownByProductAttributeAndValue(WebDriver driver, String attributeName, String optionText) {
+        waitForElementClickable(driver,ProductPUI.DYNAMIC_PRODUCT_DROPDOWN_BY_TEXT,attributeName);
+        selectItemInDropdownByVisibleText(driver,ProductPUI.DYNAMIC_PRODUCT_DROPDOWN_BY_TEXT,optionText,attributeName);
+    }
+
+    public void checkToCheckboxOrRadioByProductAttributeAndValue(WebDriver driver, String attributeName, String optionText) {
+        checkToCheckboxOrRadio(driver,ProductPUI.DYNAMIC_PRODUCT_SELECTION_BY_ATTRIBUTE_AND_TEXT,attributeName,optionText);
+    }
+
+    public Float getProductPrice(WebDriver driver) {
+        String productPriceText = getTextElement(driver,ProductPUI.PRODUCT_PRICE).replaceAll("[+;$,]","");
+        return Float.parseFloat(productPriceText);
+    }
+
+    public void updateProductQuantity(WebDriver driver, int productQuantity) {
+        sendKeysToElement(driver,ProductPUI.PRODUCT_QUANTITY_TEXTBOX,String.valueOf(productQuantity));
+    }
+
+    public void clickToUpdateButton(WebDriver driver) {
+        waitForElementClickable(driver,ProductPUI.UPDATE_PRODUCT_BUTTON);
+        clickToElement(driver,ProductPUI.UPDATE_PRODUCT_BUTTON);
+    }
 }

@@ -35,7 +35,7 @@ public class MyAccountTest extends BaseTest {
         homePO = PageGenerator.getHomePO(driver);
         newUserPOJO = registerUser(driver,homePO,registerPOJO);
         homePO.loginUser(driver,homePO, newUserPOJO.getEmail(),newUserPOJO.getPassword());
-        homePO.clickToNavLinkButtonByText(driver,"My account");
+        homePO.clickToNavLinkByText(driver,"My account");
         myAccountPO = PageGenerator.getMyAccountPO(driver);
 
         updateCustomerEmail = "automationfc.vn" + generateRandom() + "@gmail.com";
@@ -105,7 +105,7 @@ public class MyAccountTest extends BaseTest {
         myAccountPO.logoutUser(driver);
         homePO = PageGenerator.getHomePO(driver);
 
-        loginPO = homePO.clickToLoginNavButton(driver);
+        loginPO = homePO.clickToLoginNavLink(driver);
         loginPO.loginUser(driver,homePO,updateCustomerEmail, newUserPOJO.getPassword());
         Assert.assertEquals(loginPO.getValidationSummaryMessage(driver),"Login was unsuccessful. Please correct the errors and try again.");
         Assert.assertEquals(loginPO.getValidationDetailMessage(driver),"The credentials provided are incorrect");
@@ -114,7 +114,7 @@ public class MyAccountTest extends BaseTest {
         loginPO.loginUser(driver,homePO,updateCustomerEmail, changePasswordPOJO.getNewPassword());
         homePO = PageGenerator.getHomePO(driver);
         Assert.assertTrue(homePO.isMyAccountNavButtonDislayed(driver));
-        myAccountPO = homePO.clickToMyAccountNavButton(driver);
+        myAccountPO = homePO.clickToMyAccountNavLink(driver);
 
     }
 
@@ -139,7 +139,7 @@ public class MyAccountTest extends BaseTest {
         productPO.closeBarNotification(driver);
         productPO.waitForBarNotificationDisappear(driver);
 
-        productPO.clickToNavLinkButtonByText(driver,"My account");
+        productPO.clickToNavLinkByText(driver,"My account");
         myAccountPO = PageGenerator.getMyAccountPO(driver);
         myAccountPO.clickToSideNavLinkByText(driver,"My product reviews");
 

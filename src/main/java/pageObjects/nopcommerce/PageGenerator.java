@@ -26,4 +26,12 @@ public class PageGenerator {
     public static SearchPO getSearchPO(WebDriver driver) {
         return new SearchPO(driver);
     }
+
+    public static CartPO getCartPO(WebDriver driver) {
+        return new CartPO(driver);
+    }
+
+    public static CheckoutPO getCheckoutPO(WebDriver driver) {
+        return new CheckoutPO(driver);
+    }
 }
