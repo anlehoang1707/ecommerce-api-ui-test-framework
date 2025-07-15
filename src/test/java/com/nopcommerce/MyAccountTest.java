@@ -7,7 +7,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.MyAccountPO;
+import pageObjects.nopcommerce.MyAccountPO;
 import pageObjects.nopcommerce.HomePO;
 import pageObjects.nopcommerce.LoginPO;
 import pageObjects.nopcommerce.PageGenerator;

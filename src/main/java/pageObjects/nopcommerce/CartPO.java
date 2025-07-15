@@ -4,9 +4,7 @@ import commons.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pageUIs.nopcommerce.CartPUI;
-import pageUIs.nopcommerce.ProductPUI;
 
-import java.util.Collection;
 import java.util.List;
 
 public class CartPO extends BasePage {
@@ -51,7 +49,7 @@ public class CartPO extends BasePage {
         clickToElement(driver,CartPUI.TERMS_OF_SERVICE_CHECKBOX);
     }
 
-    public void cllickToCheckoutButton(WebDriver driver) {
+    public void clickToCheckoutButton(WebDriver driver) {
         waitForElementClickable(driver, CartPUI.CHECKOUT_BUTTON);
         clickToElement(driver,CartPUI.CHECKOUT_BUTTON);
     }

@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.nopcommerce;
 
 import commons.BasePage;
 import model.nopcommerce.AddAddressPOJO;
@@ -6,7 +6,6 @@ import model.nopcommerce.ChangePasswordPOJO;
 import model.nopcommerce.UpdateCustomerPOJO;
 import org.openqa.selenium.WebDriver;
 import pageUIs.nopcommerce.MyAccountPUI;
-import pageUIs.nopcommerce.ProductPUI;
 
 public class MyAccountPO extends BasePage {
     WebDriver driver;
@@ -111,5 +110,9 @@ public class MyAccountPO extends BasePage {
     public void clickToCustomerInfoSaveButton(WebDriver driver) {
         waitForElementClickable(driver,MyAccountPUI.SAVE_BUTTON);
         clickToElement(driver,MyAccountPUI.SAVE_BUTTON);
+    }
+
+    public int getLatestOrderNumber(WebDriver driver) {
+        return Integer.parseInt(getTextElement(driver,MyAccountPUI.LATEST_ORDER_TITLE).split(" ")[2]);
     }
 }

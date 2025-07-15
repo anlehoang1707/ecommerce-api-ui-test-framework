@@ -62,4 +62,9 @@ public class MyAccountPUI {
     public static final String ADD_NEW_ADDRESS_BUTTON="xpath=//h1[contains(text(),'Addresses')]//parent::div[@class='page-title']/following-sibling::div//button[text() ='Add new']";
 
     public static final String SAVE_ADDRESS_BUTTON = "xpath=//button[contains(@class,'save-address-button') and text()='Save']";
+
+    public static final String LIST_ORDER_TITLE = "xpath=//div[@class = 'section order-item']//div[@class='title']";
+
+    public static final String LATEST_ORDER_TITLE = "xpath=//div[@class = 'section order-item']//div[@class='title'][1]";
+
 }

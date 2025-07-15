@@ -1,7 +1,6 @@
 package pageObjects.nopcommerce;
 
 import org.openqa.selenium.WebDriver;
-import pageObjects.MyAccountPO;
 
 public class PageGenerator {
     public static RegisterPO getRegisterPO(WebDriver driver) {

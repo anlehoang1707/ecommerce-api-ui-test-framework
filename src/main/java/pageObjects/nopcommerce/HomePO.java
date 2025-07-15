@@ -2,7 +2,6 @@ package pageObjects.nopcommerce;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
-import pageObjects.MyAccountPO;
 import pageUIs.nopcommerce.HomePUI;
 
 public class HomePO extends BasePage {

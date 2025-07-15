@@ -1,5 +1,6 @@
 package commons;
 
+import model.nopcommerce.AddAddressPOJO;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.nopcommerce.HomePO;
 import pageObjects.nopcommerce.LoginPO;
+import pageUIs.nopcommerce.MyAccountPUI;
 
 import java.time.Duration;
 import java.util.Date;
@@ -620,5 +622,6 @@ public class BasePage {
     public void waitForLoadingIconDisappear(WebDriver driver) {
         waitForElementInvisible(driver,BasePUI.LOADING_ICON);
     }
+
 }
 

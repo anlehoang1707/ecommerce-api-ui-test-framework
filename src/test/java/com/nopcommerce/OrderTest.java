@@ -1,6 +1,8 @@
 package com.nopcommerce;
 
 import commons.BaseTest;
+import model.nopcommerce.AddAddressPOJO;
+import model.nopcommerce.CardPOJO;
 import model.nopcommerce.RegisterPOJO;
 import model.nopcommerce.products.DesktopPOJO;
 import model.nopcommerce.products.ProductFactory;
@@ -27,6 +29,11 @@ public class OrderTest extends BaseTest {
     RegisterPOJO registerPOJO;
     RegisterPOJO newUserPOJO;
     int productQuantity;
+    MyAccountPO myAccountPO;
+    String shippingMethod;
+    String paymentMethod;
+    AddAddressPOJO billingAddressPOJO, shippingAddressPOJO;
+    CardPOJO cardPOJO;
 
     @Parameters({"browserName","url"})
     @BeforeClass
@@ -49,6 +56,10 @@ public class OrderTest extends BaseTest {
         updateDesktopPOJO = (DesktopPOJO) ProductFactory.createProductPOJO("Desktops");
         updateDesktopPOJO.configureBuildYourOwnDesktop("2.2 GHz Intel Pentium Dual-Core E2200","4GB [+$20.00]","320 GB","Vista Home [+$50.00]", new ArrayList<>(Arrays.asList("Microsoft Office [+$50.00]")));
         productQuantity = 2 ;
+        shippingMethod = "Ground ($0.00)";
+        billingAddressPOJO = getBillingAddressPOJO();
+        shippingAddressPOJO = getShippingAddressPOJO();
+        cardPOJO = new CardPOJO("Visa","An Le","409912345678","12","2035","123");
     }
 
     @Test
@@ -138,17 +149,103 @@ public class OrderTest extends BaseTest {
 
     @Test
     public void TC_05_Order_Checkout_With_Cheque() {
+        paymentMethod = "Check / Money Order";
         cartPO.clickToAgreeTermAndServiceCheckbox(driver);
-        cartPO.cllickToCheckoutButton(driver);
-
+        cartPO.clickToCheckoutButton(driver);
         checkoutPO = PageGenerator.getCheckoutPO(driver);
 
+        checkoutPO.uncheckToShipToSameAddressCheckbox(driver);
+//        checkoutPO.clickToNewAddressOptionAtBillingAddress(driver);
+        checkoutPO.inputNewBillingAddressInfoForm(driver,billingAddressPOJO);
+        checkoutPO.clickToBillingAddressContinueButton(driver);
 
+        checkoutPO.uncheckToPickupCheckbox(driver);
+        checkoutPO.clickToNewAddressOptionAtShippingAddress(driver);
+        checkoutPO.inputNewShippingAddressInfoForm(driver,shippingAddressPOJO);
+        checkoutPO.clickToShippingAddressContinueButton(driver);
+
+        checkoutPO.clickToShippingMethodOptionByText(driver,shippingMethod);
+        checkoutPO.clickToShippingMethodContinueButton(driver);
+
+        checkoutPO.clickToPaymentMethodOptionByText(driver,paymentMethod);
+        checkoutPO.clickToPaymentMethodContinueButton(driver);
+
+        checkoutPO.clickToPaymentInformationContinueButton(driver);
+
+        Assert.assertTrue(checkoutPO.isBillingAddressCorrect(driver,billingAddressPOJO));
+        Assert.assertTrue(checkoutPO.isShippingAddressCorrect(driver,shippingAddressPOJO));
+//      TODO: Assert.assertTrue(checkoutPO.isCartCorrect(driver,cartPOJO));
+//        TODO: Assert.assertTrue(checkoutPO.isPaymentMethodDisplayedCorrect(driver,paymentMethod));
+
+
+        checkoutPO.clickToConfirmOrderConfirmButton(driver);
+
+        Assert.assertEquals(checkoutPO.getOrderSuccessMessage(driver),"Your order has been successfully processed!");
+
+        int orderNumber = checkoutPO.getOrderNumber(driver);
+
+        checkoutPO.clickToNavLinkByClassName(driver,"ico-account");
+        myAccountPO = PageGenerator.getMyAccountPO(driver);
+        myAccountPO.clickToSideNavLinkByText(driver,"Orders");
+        Assert.assertEquals(myAccountPO.getLatestOrderNumber(driver),orderNumber);
 
     }
 
     @Test
     public void TC_06_Order_Checkout_With_Card() {
+        paymentMethod = "Credit Card";
+        myAccountPO.clickToHeaderMenuByText(driver,"Computers");
+        productPO = PageGenerator.getProductPO(driver);
+        productPO.clickToSubCategoryItemByText(driver,productSubCategoryItemName);
+        productPO.clickToProductItemByText(driver,"Lenovo IdeaCentre");
+        productPO.updateProductQuantity(driver,5);
+        productPO.clickToAddToCartButton(driver);
+        productPO.waitForLoadingIconDisappear(driver);
+        Assert.assertEquals(productPO.getBarNotificationMessageText(driver),"The product has been added to your shopping cart");
+        productPO.closeBarNotification(driver);
+        productPO.waitForBarNotificationDisappear(driver);
+        productPO.clickToNavLinkByClassName(driver,"ico-cart");
+        cartPO = PageGenerator.getCartPO(driver);
+        Assert.assertEquals(cartPO.getCartTotalInfoByAttribute(driver,"Sub-Total"),2500.00f);
+
+        cartPO.clickToAgreeTermAndServiceCheckbox(driver);
+        cartPO.clickToCheckoutButton(driver);
+        checkoutPO = PageGenerator.getCheckoutPO(driver);
+
+        checkoutPO.uncheckToShipToSameAddressCheckbox(driver);
+        checkoutPO.clickToNewAddressOptionAtBillingAddress(driver);
+        checkoutPO.inputNewBillingAddressInfoForm(driver,billingAddressPOJO);
+        checkoutPO.clickToBillingAddressContinueButton(driver);
+
+        checkoutPO.uncheckToPickupCheckbox(driver);
+        checkoutPO.clickToNewAddressOptionAtShippingAddress(driver);
+        checkoutPO.inputNewShippingAddressInfoForm(driver,shippingAddressPOJO);
+        checkoutPO.clickToShippingAddressContinueButton(driver);
+
+        checkoutPO.clickToShippingMethodOptionByText(driver,shippingMethod);
+        checkoutPO.clickToShippingMethodContinueButton(driver);
+
+        checkoutPO.clickToPaymentMethodOptionByText(driver,paymentMethod);
+        checkoutPO.clickToPaymentMethodContinueButton(driver);
+        checkoutPO.inputCardPaymentInfo(driver,cardPOJO);
+        checkoutPO.clickToPaymentInformationContinueButton(driver);
+
+        Assert.assertTrue(checkoutPO.isBillingAddressCorrect(driver,billingAddressPOJO));
+        Assert.assertTrue(checkoutPO.isShippingAddressCorrect(driver,shippingAddressPOJO));
+
+        //Hard Sleep to avoid org.openqa.selenium.UnhandledAlertException: Unexpected alert dialog detected. Performed handler "dismiss". Dialog text: Please wait several seconds before placing a new order (already placed another order several seconds ago).: Please wait several seconds before placing a new order (already placed another order several seconds ago).
+
+        checkoutPO.clickToConfirmOrderConfirmButton(driver);
+
+        Assert.assertEquals(checkoutPO.getOrderSuccessMessage(driver),"Your order has been successfully processed!");
+
+        int orderNumber = checkoutPO.getOrderNumber(driver);
+
+        checkoutPO.clickToNavLinkByClassName(driver,"ico-account");
+        myAccountPO = PageGenerator.getMyAccountPO(driver);
+        myAccountPO.clickToSideNavLinkByText(driver,"Orders");
+        Assert.assertEquals(myAccountPO.getLatestOrderNumber(driver),orderNumber);
+
 
     }
 

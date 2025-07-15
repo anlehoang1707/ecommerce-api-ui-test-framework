@@ -3,13 +3,14 @@ import commons.factoryBrowser.BrowserNotSupportedException;
 import commons.factoryBrowser.ChromeDriverManager;
 import commons.factoryBrowser.EdgeDriverManager;
 import commons.factoryBrowser.FirefoxDriverManager;
+import model.nopcommerce.AddAddressPOJO;
 import model.nopcommerce.RegisterPOJO;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.MyAccountPO;
+import pageObjects.nopcommerce.MyAccountPO;
 import pageObjects.nopcommerce.HomePO;
 import pageObjects.nopcommerce.RegisterPO;
 
@@ -127,6 +128,40 @@ public class BaseTest {
         registerPO.logoutUser(driver);
 
         return pojo;
+    }
+
+    protected static AddAddressPOJO getBillingAddressPOJO() {
+        AddAddressPOJO billingAddressPOJO = new AddAddressPOJO();
+        billingAddressPOJO.setFirstName("Automation");
+        billingAddressPOJO.setLastName("FC");
+        billingAddressPOJO.setEmail("automationfc.vn@gmail.com");
+        billingAddressPOJO.setCompany("Automation FC");
+        billingAddressPOJO.setCountry("United States of America");
+        billingAddressPOJO.setStateProvince("Alaska");
+        billingAddressPOJO.setCity("Da Nang");
+        billingAddressPOJO.setAddress1("123/04 Le Lai");
+        billingAddressPOJO.setAddress2("234/05 Hai Phong");
+        billingAddressPOJO.setZipPostalCode("550000");
+        billingAddressPOJO.setPhoneNumber("0123456789");
+        billingAddressPOJO.setFaxNumber("0987654321");
+        return billingAddressPOJO;
+    }
+
+    protected static AddAddressPOJO getShippingAddressPOJO() {
+        AddAddressPOJO shippingAddressPOJO = new AddAddressPOJO();
+        shippingAddressPOJO.setFirstName("Auto");
+        shippingAddressPOJO.setLastName("Mation");
+        shippingAddressPOJO.setEmail("automationfc.vn@gmail.com");
+        shippingAddressPOJO.setCompany("Automation FC");
+        shippingAddressPOJO.setCountry("United States of America");
+        shippingAddressPOJO.setStateProvince("Alaska");
+        shippingAddressPOJO.setCity("Ho Chi Minh");
+        shippingAddressPOJO.setAddress1("123/04 Le Lai");
+        shippingAddressPOJO.setAddress2("234/05 Hai Phong");
+        shippingAddressPOJO.setZipPostalCode("550000");
+        shippingAddressPOJO.setPhoneNumber("0123456789");
+        shippingAddressPOJO.setFaxNumber("0987654321");
+        return shippingAddressPOJO;
     }
 
 
