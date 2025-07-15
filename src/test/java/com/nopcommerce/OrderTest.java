@@ -233,8 +233,6 @@ public class OrderTest extends BaseTest {
         Assert.assertTrue(checkoutPO.isBillingAddressCorrect(driver,billingAddressPOJO));
         Assert.assertTrue(checkoutPO.isShippingAddressCorrect(driver,shippingAddressPOJO));
 
-        //Hard Sleep to avoid org.openqa.selenium.UnhandledAlertException: Unexpected alert dialog detected. Performed handler "dismiss". Dialog text: Please wait several seconds before placing a new order (already placed another order several seconds ago).: Please wait several seconds before placing a new order (already placed another order several seconds ago).
-
         checkoutPO.clickToConfirmOrderConfirmButton(driver);
 
         Assert.assertEquals(checkoutPO.getOrderSuccessMessage(driver),"Your order has been successfully processed!");
