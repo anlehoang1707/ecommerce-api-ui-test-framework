@@ -19,4 +19,9 @@ public class BasePUI {
     public static final String DYNAMIC_NAV_LINK_FOOTER_BY_TEXT ="xpath=//div[@class='footer']//div[contains(@class,'footer-block')]//a[text()='%s']";
 
     public static final String LOADING_ICON = "xpath=//div[contains(@class,'ajax-loading-block-window')]";
+
+    public static final String DYNAMIC_ADMIN_PARENT_SIDE_MENU_LINK = "xpath=//li[contains(@class,'nav-item has-treeview')]//p[normalize-space() ='%s']//parent::a[@class ='nav-link']";
+
+            public static final String DYNAMIC_ADMIN_CHILD_SIDE_MENU_LINK = "xpath=//li[contains(@class,'nav-item has-treeview')]//p[normalize-space() ='%s']//ancestor::li[@class='nav-item']/a[@class ='nav-link']";
+
 }

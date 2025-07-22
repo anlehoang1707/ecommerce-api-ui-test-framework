@@ -11,5 +11,7 @@ public class GlobalConstants {
 
     public static final String NOPCOMMERCE_VALID_LOGIN_PASSWORD = "Automation@123";
 
+    public static final String NOPCOMMERCE_ADMIN_EMAIL = "automation@gmail.com";
+
 
 }

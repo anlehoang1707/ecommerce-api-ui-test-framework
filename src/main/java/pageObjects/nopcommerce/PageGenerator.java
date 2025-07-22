@@ -1,6 +1,11 @@
 package pageObjects.nopcommerce;
 
 import org.openqa.selenium.WebDriver;
+import pageObjects.nopcommerce.admin.AdminCustomerPO;
+import pageObjects.nopcommerce.admin.AdminDetailProductPO;
+import pageObjects.nopcommerce.admin.AdminHomePO;
+import pageObjects.nopcommerce.admin.AdminProductPO;
+import pageObjects.nopcommerce.users.*;
 
 public class PageGenerator {
     public static RegisterPO getRegisterPO(WebDriver driver) {
@@ -32,5 +37,21 @@ public class PageGenerator {
 
     public static CheckoutPO getCheckoutPO(WebDriver driver) {
         return new CheckoutPO(driver);
+    }
+
+    public static AdminHomePO getAdminHomePO(WebDriver driver) {
+        return new AdminHomePO(driver);
+    }
+
+    public static AdminProductPO getAdminProductPO(WebDriver driver) {
+        return new AdminProductPO(driver);
+    }
+
+    public static AdminDetailProductPO getAdminDetailProductPO(WebDriver driver) {
+        return new AdminDetailProductPO(driver);
+    }
+
+    public static AdminCustomerPO getAdminCustomerPO(WebDriver driver) {
+        return new AdminCustomerPO(driver);
     }
 }
