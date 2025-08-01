@@ -10,10 +10,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeSuite;
 import pageObjects.nopcommerce.users.MyAccountPO;
 import pageObjects.nopcommerce.users.HomePO;
 import pageObjects.nopcommerce.users.RegisterPO;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.Random;
 
@@ -23,6 +25,32 @@ public class BaseTest {
     // The BaseTest Class will centralize common methods that TestCase classes will use; whereas TestCase Classes will focus solely on simulate and assert the test cases/user behaviors
     // Common Methods are getBrowser (by various TestNG parameters use cases, get Random number, Hard Assert and Soft Assert)
     // Explicit Wait & Implicit Wait will also be declared here;
+
+    @BeforeSuite
+    public void deleteFileInReport() {
+        // Remove all file in ReportNG screenshot (image)
+
+        // Remove all file in Allure attachment (json file)
+        deleteAllFileInFolder("allure-results");
+    }
+
+    public void deleteAllFileInFolder(String folderName) {
+        try {
+            String pathFolderDownload = GlobalConstants.RELATIVE_PROJECT_PATH + File.separator + folderName;
+            System.out.println("Deleting files in: " + pathFolderDownload);
+            File file = new File(pathFolderDownload);
+            File[] listOfFiles = file.listFiles();
+            if (listOfFiles.length != 0) {
+                for (int i = 0; i < listOfFiles.length; i++) {
+                    if (listOfFiles[i].isFile() && !listOfFiles[i].getName().equals("environment.properties")) {
+                        new File(listOfFiles[i].toString()).delete();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
+    }
 
     protected WebDriver driver;
     protected WebDriverWait explicitWait;
