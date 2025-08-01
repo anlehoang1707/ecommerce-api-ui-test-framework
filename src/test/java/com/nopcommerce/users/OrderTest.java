@@ -108,6 +108,7 @@ public class OrderTest extends BaseTest {
         productPO.checkToCheckboxOrRadioByProductAttributeAndValue(driver,"OS", updateDesktopPOJO.getOs());
         productPO.updateProductQuantity(driver, productQuantity);
         productPO.clickToUpdateButton(driver);
+        productPO.waitForLoadingIconDisappear(driver);
 
 
         Assert.assertEquals(productPO.getProductPrice(driver),1320.00f);
@@ -145,6 +146,7 @@ public class OrderTest extends BaseTest {
         productPO.clickToNavLinkByClassName(driver,"ico-cart");
 
         cartPO = PageGenerator.getCartPO(driver);
+        cartPO.waitForLoadingIconDisappear(driver);
         Assert.assertEquals(cartPO.getCartTotalInfoByAttribute(driver,"Sub-Total"),2500.00f);
     }
 

@@ -30,18 +30,18 @@ public class SortDisplayPagingTest extends BaseTest {
     }
 
     @Test
-    public void TC_01_Sort_A_To_Z() throws InterruptedException {
+    public void TC_01_Sort_A_To_Z() {
         productPO.selectSortOptionByText(driver,"Name: A to Z");
-        productPO.sleepInSeconds(1);
+        productPO.waitForLoadingIconDisappear(driver);
 
         Assert.assertTrue(productPO.isProductNameDataSortedAsc(driver));
 
     }
 
     @Test
-    public void TC_02_Sort_Z_To_A() throws InterruptedException {
+    public void TC_02_Sort_Z_To_A() {
         productPO.selectSortOptionByText(driver,"Name: Z to A");
-        productPO.sleepInSeconds(1);
+        productPO.waitForLoadingIconDisappear(driver);
 
 
         Assert.assertTrue(productPO.isProductNameDataSortedDsc(driver));
@@ -49,18 +49,18 @@ public class SortDisplayPagingTest extends BaseTest {
     }
 
     @Test
-    public void TC_03_Sort_Price_Low_To_High() throws InterruptedException {
+    public void TC_03_Sort_Price_Low_To_High() {
         productPO.selectSortOptionByText(driver,"Price: Low to High");
-        productPO.sleepInSeconds(1);
+        productPO.waitForLoadingIconDisappear(driver);
 
         Assert.assertTrue(productPO.isProductPriceDataSortedAsc(driver));
 
     }
 
     @Test
-    public void TC_04_Sort_Price_High_To_Low() throws InterruptedException {
+    public void TC_04_Sort_Price_High_To_Low() {
         productPO.selectSortOptionByText(driver,"Price: High to Low");
-        productPO.sleepInSeconds(1);
+        productPO.waitForLoadingIconDisappear(driver);
 
         Assert.assertTrue(productPO.isProductPriceDataSortedDsc(driver));
 
@@ -69,6 +69,7 @@ public class SortDisplayPagingTest extends BaseTest {
     @Test
     public void TC_05_Display_With_3_Products_Per_Page() {
         productPO.selectPagingOptionByText(driver,"3");
+        productPO.waitForLoadingIconDisappear(driver);
 
 
         Assert.assertTrue(productPO.isProductListDisplayedLessOrEqual(driver,3));
@@ -84,6 +85,8 @@ public class SortDisplayPagingTest extends BaseTest {
     @Test
     public void TC_06_Display_With_6_Products_Per_Page() {
         productPO.selectPagingOptionByText(driver,"6");
+        productPO.waitForLoadingIconDisappear(driver);
+
 
         Assert.assertTrue(productPO.isProductListDisplayedLessOrEqual(driver,6));
 
@@ -92,6 +95,8 @@ public class SortDisplayPagingTest extends BaseTest {
     @Test
     public void TC_07_Display_With_9_Products_Per_Page() {
         productPO.selectPagingOptionByText(driver,"9");
+        productPO.waitForLoadingIconDisappear(driver);
+
 
         Assert.assertTrue(productPO.isProductListDisplayedLessOrEqual(driver,9));
 
