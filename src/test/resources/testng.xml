@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+
+    <listeners>
+        <listener class-name="commons.MethodListener"></listener>
+        <listener class-name="reportConfigs.AllureTestListener"></listener>
+    </listeners>
+
+    <parameter name="browserName" value="firefox"/>
+<!--    <parameter name="url" value="http://localhost:8086"/>-->
+    <parameter name="url" value="http://nopcommerce.anlehoang1707.site"/>
+    <test name="NopCommerce Test Suite">
+        <classes>
+            <class name="com.nopcommerce.users.RegisterTest"/>
+            <class name="com.nopcommerce.users.LoginTest"/>
+            <class name="com.nopcommerce.users.MyAccountTest"/>
+            <class name="com.nopcommerce.users.SearchTest"/>
+            <class name="com.nopcommerce.users.SortDisplayPagingTest"/>
+            <class name="com.nopcommerce.users.OrderTest"/>
+<!--            <class name="com.nopcommerce.admin.AdminTest"/>-->
+        </classes>
+    </test>
+</suite>
